@@ -7,7 +7,14 @@
     <h1>Squareface Config</h1>
     <p>Settings</p>
 
-    <p>Invert Watchface:
+    <p>Background:
+    <select id="background_select">
+      <option value="off">Off</option>
+      <option value="on">On</option>
+    </select>
+    </p>
+
+    <p>Invert Colors:
     <select id="invert_select">
       <option value="off">Off</option>
       <option value="on">On</option>
@@ -22,9 +29,11 @@
       //Setup to allow easy adding more options later
       function saveOptions() {
         var invertSelect = document.getElementById("invert_select");
+        var backSelect = document.getElementById("background_select");
 
         var options = {
           "invert": invertSelect.options[invertSelect.selectedIndex].value
+          "back": backSelect.options[backSelect.selectedIndex].value
         }
         
         return options;
