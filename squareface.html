@@ -21,6 +21,13 @@
     </select>
     </p>
 
+    <p>Date Format:
+    <select id="date_select">
+      <option value="DD-MM">DD-MM</option>
+      <option value="MM-DD">MM-DD</option>
+    </select>
+    </p>
+
     <p>
     <button id="save_button">Save</button>
     </p>
@@ -28,9 +35,11 @@
     <script>		
         var invertSelect = document.getElementById("invert_select");
         var backSelect = document.getElementById("background_select");
+		var dateSelect = document.getElementById("date_select");
 	
 		var invert;
 		var back;
+		var date;
 		
 		var tid = setInterval( function () {
 			if ( document.readyState !== 'complete' ) return;
@@ -39,9 +48,11 @@
 			// do your work
 			invert = localStorage.getItem("invert");
 			back = localStorage.getItem("back");
+			date = localStorage.getItem("date");
 			
 			invertSelect.value = invert;
 			backSelect.value = back;
+			dateSelect.value = date;
 			
 		}, 100 );
 	
@@ -51,10 +62,12 @@
         	
 		localStorage.setItem("invert", invertSelect.options[invertSelect.selectedIndex].value);
 		localStorage.setItem("back", backSelect.options[backSelect.selectedIndex].value);
+		localStorage.setItem("date", dateSelect.options[dateSelect.selectedIndex].value);
 		
 		var options = {
           "invert": localStorage.invert,
-          "back": localStorage.back
+          "back": localStorage.back,
+		  "date": localStorage.date
         }
         
         return options;
