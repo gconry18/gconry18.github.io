@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Squareface Config</title>
+  </head>
+  <body>
+    <h1>Squareface Config</h1>
+    <p>Settings</p>
+
+    <p>Invert Colors:
+    <select id="invert_select">
+      <option value="off">Off</option>
+      <option value="on">On</option>
+    </select>
+    </p>
+
+    <p>Background:
+    <select id="background_select">
+      <option value="off">Off</option>
+      <option value="on">On</option>
+    </select>
+    </p>
+
+    <p>Date Format:
+    <select id="date_select">
+      <option value="DD-MM">DD-MM</option>
+      <option value="MM-DD">MM-DD</option>
+    </select>
+    </p>
+
+    <p>Graph Updates:
+    <select id="graph_update">
+      <option value="0">No Updates</option>
+      <option value="1">1 sec</option>
+      <option value="5">5 sec</option>
+      <option value="10">10 sec</option>
+      <option value="30">30 sec</option>
+      <option value="60">1 min</option>	  
+    </select>
+    </p>
+
+    <p>
+    <button id="save_button">Save</button>
+    </p>
+
+    <script>		
+        var invertSelect = document.getElementById("invert_select");
+        var backSelect = document.getElementById("background_select");
+		var dateSelect = document.getElementById("date_select");
+		var graphUpdate = document.getElementById("graph_update");
+	
+		var invert;
+		var back;
+		var date;
+		var graphPeriod;
+		
+		var tid = setInterval( function () {
+			if ( document.readyState !== 'complete' ) return;
+			clearInterval( tid );    
+			
+			// do your work
+			invert = localStorage.getItem("invert");
+			back = localStorage.getItem("back");
+			date = localStorage.getItem("date");
+			graphPeriod = localStorage.getItem("graphPeriod");
+			
+			if (invert) invertSelect.value = invert;
+			if (back) backSelect.value = back;
+			if (date) dateSelect.value = date;
+			if (graphPeriod) graphUpdate.value = graphPeriod;
+			
+		}, 100 );
+	
+      //Setup to allow easy adding more options later
+      function saveOptions() {
+		console.log("Saving");
+        	
+		localStorage.setItem("invert", invertSelect.options[invertSelect.selectedIndex].value);
+		localStorage.setItem("back", backSelect.options[backSelect.selectedIndex].value);
+		localStorage.setItem("date", dateSelect.options[dateSelect.selectedIndex].value);
+		localStorage.setItem("graphPeriod", graphUpdate.options[graphUpdate.selectedIndex].value);
+		
+		var options = {
+          "invert": localStorage.invert,
+          "back": localStorage.back,
+		  "date": localStorage.date,
+		  "graphPeriod": localStorage.graphPeriod
+        }
+        
+        return options;
+      };
+
+      var submitButton = document.getElementById("save_button");
+      submitButton.addEventListener("click", 
+        function() {
+          console.log("Submit");
+
+          var options = saveOptions();
+          var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(options));
+          
+          document.location = location;
+        }, 
+      false);
+    </script>
+  </body>
+</html>
