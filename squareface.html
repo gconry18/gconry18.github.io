@@ -32,23 +32,28 @@
 		var invert;
 		var back;
 		
-		$().ready(function () {
+		var tid = setInterval( function () {
+			if ( document.readyState !== 'complete' ) return;
+			clearInterval( tid );    
+			
+			// do your work
 			invert = localStorage.getItem("invert");
 			back = localStorage.getItem("back");
 			
 			invertSelect.value = invert;
 			backSelect.value = back;
-		});
+			
+		}, 100 );
 	
       //Setup to allow easy adding more options later
       function saveOptions() {
-        var invertSelect = document.getElementById("invert_select");
-        var backSelect = document.getElementById("background_select");
-
-        var options = {
-          "invert": invertSelect.options[invertSelect.selectedIndex].value,
-          "back": backSelect.options[backSelect.selectedIndex].value
-        }
+        //var options = {
+        //  "invert": invertSelect.options[invertSelect.selectedIndex].value,
+        //  "back": backSelect.options[backSelect.selectedIndex].value
+        //}
+		
+		localStorage.setItem("invert", invertSelect.options[invertSelect.selectedIndex].value);
+		localStorage.setItem("back", backSelect.options[backSelect.selectedIndex].value);
         
         return options;
       };
