@@ -28,6 +28,17 @@
     </select>
     </p>
 
+    <p>Graph Updates:
+    <select id="graph_update">
+      <option value="0">No Updates</option>
+      <option value="1">1 sec</option>
+      <option value="5">5 sec</option>
+      <option value="10">10 sec</option>
+      <option value="30">30 sec</option>
+      <option value="60">1 min</option>	  
+    </select>
+    </p>
+
     <p>
     <button id="save_button">Save</button>
     </p>
@@ -36,10 +47,12 @@
         var invertSelect = document.getElementById("invert_select");
         var backSelect = document.getElementById("background_select");
 		var dateSelect = document.getElementById("date_select");
+		var graphUpdate = document.getElementById("graph_update");
 	
 		var invert;
 		var back;
 		var date;
+		var graphPeriod;
 		
 		var tid = setInterval( function () {
 			if ( document.readyState !== 'complete' ) return;
@@ -49,10 +62,12 @@
 			invert = localStorage.getItem("invert");
 			back = localStorage.getItem("back");
 			date = localStorage.getItem("date");
+			graphPeriod = localStorage.getItem("graphPeriod");
 			
-			invertSelect.value = invert;
-			backSelect.value = back;
-			dateSelect.value = date;
+			if (invert) invertSelect.value = invert;
+			if (back) backSelect.value = back;
+			if (date) dateSelect.value = date;
+			if (graphPeriod) graphUpdate.value = graphPeriod;
 			
 		}, 100 );
 	
@@ -63,11 +78,13 @@
 		localStorage.setItem("invert", invertSelect.options[invertSelect.selectedIndex].value);
 		localStorage.setItem("back", backSelect.options[backSelect.selectedIndex].value);
 		localStorage.setItem("date", dateSelect.options[dateSelect.selectedIndex].value);
+		localStorage.setItem("graphPeriod", graphUpdate.options[graphUpdate.selectedIndex].value);
 		
 		var options = {
           "invert": localStorage.invert,
           "back": localStorage.back,
-		  "date": localStorage.date
+		  "date": localStorage.date,
+		  "graphPeriod": localStorage.graphPeriod
         }
         
         return options;
