@@ -47,13 +47,15 @@
 	
       //Setup to allow easy adding more options later
       function saveOptions() {
-        //var options = {
-        //  "invert": invertSelect.options[invertSelect.selectedIndex].value,
-        //  "back": backSelect.options[backSelect.selectedIndex].value
-        //}
-		
+		console.log("Saving");
+        	
 		localStorage.setItem("invert", invertSelect.options[invertSelect.selectedIndex].value);
 		localStorage.setItem("back", backSelect.options[backSelect.selectedIndex].value);
+		
+		var options = {
+          "invert": localStorage.invert,
+          "back": localStorage.back
+        }
         
         return options;
       };
