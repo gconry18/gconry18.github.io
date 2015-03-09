@@ -7,15 +7,15 @@
     <h1>Squareface Config</h1>
     <p>Settings</p>
 
-    <p>Background:
-    <select id="background_select">
+    <p>Invert Colors:
+    <select id="invert_select">
       <option value="off">Off</option>
       <option value="on">On</option>
     </select>
     </p>
 
-    <p>Invert Colors:
-    <select id="invert_select">
+    <p>Background:
+    <select id="background_select">
       <option value="off">Off</option>
       <option value="on">On</option>
     </select>
@@ -25,7 +25,21 @@
     <button id="save_button">Save</button>
     </p>
 
-    <script>
+    <script>		
+        var invertSelect = document.getElementById("invert_select");
+        var backSelect = document.getElementById("background_select");
+	
+		var invert;
+		var back;
+		
+		$().ready(function () {
+			invert = localStorage.getItem("invert");
+			back = localStorage.getItem("back");
+			
+			invertSelect.value = invert;
+			backSelect.value = back;
+		});
+	
       //Setup to allow easy adding more options later
       function saveOptions() {
         var invertSelect = document.getElementById("invert_select");
